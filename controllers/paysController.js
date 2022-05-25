@@ -12,7 +12,7 @@ const addPays = async (req, res) => {
     nom: req.body.nom,
   };
 
-  const pays = await Pays.create(pays);
+  const pays = await Pays.create(data);
   res.status(200).send(pays);
 };
 

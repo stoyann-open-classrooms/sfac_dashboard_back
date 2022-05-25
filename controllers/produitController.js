@@ -45,13 +45,13 @@ const deleteProduit = async (req, res) => {
 };
 
 // 8. Upload Image Controller
-
+const im = "photo_produit_";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "Images");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, im + Date.now() + path.extname(file.originalname));
   },
 });
 

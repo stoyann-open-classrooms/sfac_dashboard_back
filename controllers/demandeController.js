@@ -10,6 +10,7 @@ const addDemande = async (req, res) => {
 
   let data = {
     appareil_id: req.body.appareil_id,
+    produit_id: req.body.produit_id,
     kanban_id: req.body.kanban_id,
     unite_id: req.body.unite_id,
     frspdt_id: req.body.frspdt_id,

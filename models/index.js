@@ -56,4 +56,16 @@ db.kanbans.belongsTo(db.appareils, {
   as: "appareil",
 });
 
+db.kanbans.hasMany(db.demandes, {
+  foreignKey: "kanban_id",
+  as: "kanban",
+});
+db.demandes.belongsTo(db.kanbans, {
+  foreignKey: "kanban_id",
+  as: "kanban",
+});
+db.fournisseurs.hasOne(db.payss, {
+  foreignKey: "pays",
+});
+
 module.exports = db;
