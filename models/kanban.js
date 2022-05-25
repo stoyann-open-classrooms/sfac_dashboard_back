@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     appareil_id: {
       type: DataTypes.INTEGER(10),
-      allowNul: false,
+      allowNul: true,
     },
     uid_nfc: {
       type: DataTypes.STRING(50),

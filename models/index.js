@@ -49,9 +49,11 @@ db.sequelize.sync({ force: false }).then(() => {
 
 db.appareils.hasMany(db.kanbans, {
   foreignKey: "appareil_id",
+  as: "kanban",
 });
 db.kanbans.belongsTo(db.appareils, {
   foreignKey: "appareil_id",
+  as: "appareil",
 });
 
 module.exports = db;
