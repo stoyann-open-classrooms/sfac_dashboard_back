@@ -1,6 +1,6 @@
 # SFAC dashboard
 
-[sfac_logo](./Images/logo192.png))
+[sfac_logo](./Images/logo192.png)
 ================ FR ====================
 
 ## Comment lancer l'API en local:
