@@ -38,7 +38,6 @@ db.kanbans = require("./kanban")(sequelize, DataTypes);
 db.produits = require("./produit")(sequelize, DataTypes);
 db.unites = require("./unite")(sequelize, DataTypes);
 db.payss = require("./pays")(sequelize, DataTypes);
-db.appareils = require("./appareil")(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("base de donnée synchroniser!");
@@ -47,31 +46,31 @@ db.sequelize.sync({ force: false }).then(() => {
 // ================= RELATIONS OK =============
 // 1 to many relation kanban et demandes
 
-db.kanbans.hasMany(db.demandes, {
-  foreignKey: "kanban_id",
-  as: "kanban",
-});
-db.demandes.belongsTo(db.kanbans, {
-  foreignKey: "kanban_id",
-  as: "kanban",
-});
+// db.kanbans.hasMany(db.demandes, {
+//   foreignKey: "kanban_id",
+//   as: "kanban",
+// });
+// db.demandes.belongsTo(db.kanbans, {
+//   foreignKey: "kanban_id",
+//   as: "kanban",
+// });
 
-// // ================ todo = mise en place des relations
-// 1 to many relation between appareils et kanbans
+// // // ================ todo = mise en place des relations
+// // 1 to many relation between appareils et kanbans
 
-db.appareils.hasMany(db.kanbans, {
-  foreignKey: "appareil_id",
-  as: "kanban",
-});
-db.kanbans.belongsTo(db.appareils, {
-  foreignKey: "appareil_id",
-  as: "appareil",
-});
+// db.appareils.hasMany(db.kanbans, {
+//   foreignKey: "appareil_id",
+//   as: "kanban",
+// });
+// db.kanbans.belongsTo(db.appareils, {
+//   foreignKey: "appareil_id",
+//   as: "appareil",
+// });
 
-// 1 to 1 relation between fournisseur et pays
+// // 1 to 1 relation between fournisseur et pays
 
-db.fournisseurs.hasOne(db.payss, {
-  foreignKey: "pays",
-});
+// db.fournisseurs.hasOne(db.payss, {
+//   foreignKey: "pays",
+// });
 
 module.exports = db;

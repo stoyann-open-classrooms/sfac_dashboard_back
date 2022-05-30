@@ -22,8 +22,6 @@ const produitRouter = require("./routes/produitRouter");
 app.use(`${process.env.BASE_URL}/produit`, produitRouter);
 const uniteRouter = require("./routes/uniteRouter");
 app.use(`${process.env.BASE_URL}/unite`, uniteRouter);
-const appareilRouter = require("./routes/appareilRouter");
-app.use(`${process.env.BASE_URL}/appareil`, appareilRouter);
 const paysRouter = require("./routes/paysRouter");
 app.use(`${process.env.BASE_URL}/pays`, paysRouter);
 const userRouter = require("./routes/userRouter");

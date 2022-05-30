@@ -66,7 +66,7 @@ const getAllUsers = async (req, res) => {
     );
 };
 
-// 3. get single troc
+// 3. get one user
 
 const getOneUser = async (req, res) => {
   let userId = parseInt(req.params.id);

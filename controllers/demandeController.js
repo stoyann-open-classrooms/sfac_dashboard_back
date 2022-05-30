@@ -9,16 +9,14 @@ const addDemande = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    appareil_id: req.body.appareil_id,
-    produit_id: req.body.produit_id,
     kanban_id: req.body.kanban_id,
-    unite_id: req.body.unite_id,
-    frspdt_id: req.body.frspdt_id,
     date_demande: req.body.date_demande,
+    urgent: req.body.urgent,
+    quantite: req.body.quantite,
+    num_commande: req.body.num_commande,
     date_commande: req.body.date_commande,
     date_livraison: req.body.date_livraison,
-    num_commande: req.body.num_commande,
-    urgent: req.body.urgent,
+    frspdt_id: req.body.frspdt_id,
   };
 
   const demande = await Demande.create(data);
@@ -38,7 +36,7 @@ const updateDemande = async (req, res) => {
 
   const demande = await Demande.update(req.body, { where: { id: id } });
 
-  res.status(200).send(demande);
+  res.status(200).send(demande.body);
 };
 
 // 5.Supprimer un fournisseur

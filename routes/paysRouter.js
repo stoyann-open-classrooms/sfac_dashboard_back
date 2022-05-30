@@ -5,7 +5,7 @@ const paysController = require("../controllers/paysController");
 const router = require("express").Router();
 
 // fournisseurs routers
-router.post("/addPays", paysController.addPays);
+router.put("/addPays", paysController.addPays);
 
 router.get("/allPays", paysController.getAllPays);
 

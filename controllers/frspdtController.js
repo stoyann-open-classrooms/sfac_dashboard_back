@@ -11,8 +11,8 @@ const addFrspdt = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    id_produit: req.body.id_produit,
     id_fournisseur: req.body.id_fournisseur,
+    id_produit: req.body.id_produit,
     delai_jour: req.body.delai_jour,
     quantite_min: req.body.quantite_min,
     quantite_unite: req.body.quantite_unite,
