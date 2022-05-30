@@ -10,7 +10,6 @@ const addKanban = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    produit_id: req.body.product_id,
     uid_nfc: req.body.uid_nfc,
   };
 

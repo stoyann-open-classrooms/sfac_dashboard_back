@@ -29,6 +29,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 ///====================== synchronisation des models
+db.users = require("./user.js")(sequelize, DataTypes);
 
 db.demandes = require("./demande")(sequelize, DataTypes);
 db.fournisseurs = require("./fournisseur")(sequelize, DataTypes);
@@ -43,8 +44,19 @@ db.sequelize.sync({ force: false }).then(() => {
   console.log("base de donnée synchroniser!");
 });
 
-// // ================ todo = mise en place des relations
+// ================= RELATIONS OK =============
+// 1 to many relation kanban et demandes
 
+db.kanbans.hasMany(db.demandes, {
+  foreignKey: "kanban_id",
+  as: "kanban",
+});
+db.demandes.belongsTo(db.kanbans, {
+  foreignKey: "kanban_id",
+  as: "kanban",
+});
+
+// // ================ todo = mise en place des relations
 // 1 to many relation between appareils et kanbans
 
 db.appareils.hasMany(db.kanbans, {
@@ -56,14 +68,8 @@ db.kanbans.belongsTo(db.appareils, {
   as: "appareil",
 });
 
-db.kanbans.hasMany(db.demandes, {
-  foreignKey: "kanban_id",
-  as: "kanban",
-});
-db.demandes.belongsTo(db.kanbans, {
-  foreignKey: "kanban_id",
-  as: "kanban",
-});
+// 1 to 1 relation between fournisseur et pays
+
 db.fournisseurs.hasOne(db.payss, {
   foreignKey: "pays",
 });

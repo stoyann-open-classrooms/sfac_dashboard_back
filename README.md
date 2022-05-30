@@ -6,9 +6,7 @@
 
 ### Cloner le projet:
 
-```
 https://github.com/stoyann-open-classrooms/sfac_dashboard_back.git
-```
 
 ### Acceder au repertoire du projet :
 

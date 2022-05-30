@@ -26,6 +26,10 @@ const appareilRouter = require("./routes/appareilRouter");
 app.use(`${process.env.BASE_URL}/appareil`, appareilRouter);
 const paysRouter = require("./routes/paysRouter");
 app.use(`${process.env.BASE_URL}/pays`, paysRouter);
+const userRouter = require("./routes/userRouter");
+app.use(`${process.env.BASE_URL}/users`, userRouter);
+const authRouter = require("./routes/authRouter.js");
+app.use(`${process.env.BASE_URL}/auth`, authRouter);
 
 //static Images Folder
 
