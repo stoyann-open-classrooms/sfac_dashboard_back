@@ -29,6 +29,12 @@ const getAllPays = async (req, res) => {
     );
 };
 
+const getOnePays = async (req, res) => {
+  let id = req.params.id;
+  let pays = await Pays.findOne({ where: { id: id } });
+  res.status(200).send(pays);
+};
+
 const updatePays = async (req, res) => {
   let id = req.params.id;
 
@@ -49,5 +55,6 @@ module.exports = {
   addPays,
   getAllPays,
   updatePays,
+  getOnePays,
   deletePays,
 };

@@ -29,6 +29,12 @@ const getAllUnites = async (req, res) => {
     );
 };
 
+const getOneUnite = async (req, res) => {
+  let id = req.params.id;
+  let unite = await Unite.findOne({ where: { id: id } });
+  res.status(200).send(unite);
+};
+
 const updateUnite = async (req, res) => {
   let id = req.params.id;
 
@@ -48,6 +54,7 @@ const deleteUnite = async (req, res) => {
 module.exports = {
   addUnite,
   getAllUnites,
+  getOneUnite,
   updateUnite,
   deleteUnite,
 };

@@ -11,6 +11,7 @@ router.post(
 );
 router.get("/allFournisseurs", fournisseurController.getAllFournisseurs);
 
+router.get("/:id", fournisseurController.getOneFounisseur);
 router.put("/:id", fournisseurController.updateFournisseur);
 
 router.delete("/:id", fournisseurController.deleteFournisseur);

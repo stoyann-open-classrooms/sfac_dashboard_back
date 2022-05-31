@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantite_min: {
       type: DataTypes.INTEGER(10),
-
-      allowNul: true,
+      allowNul: false,
     },
     quantite_unite: {
       type: DataTypes.INTEGER(10),

@@ -9,6 +9,7 @@ router.post("/addFrspdt", frspdtController.addFrspdt);
 
 router.get("/allFrspdts", frspdtController.getAllFrspdts);
 
+router.get("/:id", frspdtController.getOneFrspdt);
 router.put("/:id", frspdtController.updateFrspdt);
 
 router.delete("/:id", frspdtController.deleteFrspdt);

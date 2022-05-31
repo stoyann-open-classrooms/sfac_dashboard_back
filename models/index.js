@@ -56,20 +56,14 @@ db.sequelize.sync({ force: false }).then(() => {
 // });
 
 // // // ================ todo = mise en place des relations
-// // 1 to many relation between appareils et kanbans
-
-// db.appareils.hasMany(db.kanbans, {
-//   foreignKey: "appareil_id",
-//   as: "kanban",
-// });
-// db.kanbans.belongsTo(db.appareils, {
-//   foreignKey: "appareil_id",
-//   as: "appareil",
-// });
 
 // 1 to many relation between fournisseur et pays
 
-db.payss.hasMany(db.fournisseurs, {});
+db.payss.hasMany(db.fournisseurs, {
+  foreignKey: {
+    type: DataTypes.INTEGER(10),
+  },
+});
 db.fournisseurs.belongsTo(db.payss, {});
 
 // 1 to many relation between fournisseur et produits
@@ -90,7 +84,13 @@ db.demandes.belongsTo(db.kanbans, {});
 
 db.unites.hasMany(db.frspdts, {});
 db.frspdts.belongsTo(db.unites, {});
-db.produits.hasOne(db.frspdts, {});
+
+// 1 To 1 between product et frspdt
+db.produits.hasOne(db.frspdts, {
+  foreignKey: {
+    type: DataTypes.INTEGER(10),
+  },
+});
 db.frspdts.belongsTo(db.produits, {});
 
 module.exports = db;

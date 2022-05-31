@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       defaultVAlue: "",
       allowNul: false,
+      unique: true,
     },
   });
 

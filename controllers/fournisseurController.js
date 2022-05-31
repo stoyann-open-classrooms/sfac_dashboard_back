@@ -40,6 +40,12 @@ const getAllFournisseurs = async (req, res) => {
     );
 };
 
+const getOneFounisseur = async (req, res) => {
+  let id = req.params.id;
+  let fournisseur = await Fournisseur.findOne({ where: { id: id } });
+  res.status(200).send(fournisseur);
+};
+
 // modifier un fournisseur
 const updateFournisseur = async (req, res) => {
   let id = req.params.id;
@@ -88,7 +94,7 @@ const upload = multer({
 module.exports = {
   addFournisseur,
   getAllFournisseurs,
-
+  getOneFounisseur,
   updateFournisseur,
   deleteFournisseur,
 

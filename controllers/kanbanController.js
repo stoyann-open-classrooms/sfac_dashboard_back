@@ -34,6 +34,12 @@ const getAllKanbans = async (req, res) => {
     );
 };
 
+const getOneKanban = async (req, res) => {
+  let id = req.params.id;
+  let kanban = await Kanban.findOne({ where: { id: id } });
+  res.status(200).send(kanban);
+};
+
 // modifier un fournisseur
 const updateKanban = async (req, res) => {
   let id = req.params.id;
@@ -55,7 +61,7 @@ const deleteKanban = async (req, res) => {
 
 module.exports = {
   addKanban,
-
+  getOneKanban,
   getAllKanbans,
   updateKanban,
   deleteKanban,

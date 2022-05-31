@@ -11,12 +11,9 @@ const addFrspdt = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    id_fournisseur: req.body.id_fournisseur,
-    id_produit: req.body.id_produit,
     delai_jour: req.body.delai_jour,
     quantite_min: req.body.quantite_min,
     quantite_unite: req.body.quantite_unite,
-    id_unite: req.body.id_unite,
   };
 
   const frspdt = await Frspdt.create(data);
@@ -37,7 +34,11 @@ const getAllFrspdts = async (req, res) => {
       res.status(500).json({ message: `⛔️ Database Error`, error: err })
     );
 };
-
+const getOneFrspdt = async (req, res) => {
+  let id = req.params.id;
+  let frspdt = await Frspdt.findOne({ where: { id: id } });
+  res.status(200).send(frspdt);
+};
 // modifier un fournisseur
 const updateFrspdt = async (req, res) => {
   let id = req.params.id;
@@ -61,5 +62,6 @@ module.exports = {
   addFrspdt,
   getAllFrspdts,
   updateFrspdt,
+  getOneFrspdt,
   deleteFrspdt,
 };

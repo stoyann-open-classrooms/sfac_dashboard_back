@@ -34,6 +34,12 @@ const getAllProduits = async (req, res) => {
     );
 };
 
+const getOneProduit = async (req, res) => {
+  let id = req.params.id;
+  let produit = await Produit.findOne({ where: { id: id } });
+  res.status(200).send(produit);
+};
+
 // modifier un fournisseur
 const updateProduit = async (req, res) => {
   let id = req.params.id;
@@ -82,7 +88,7 @@ const upload = multer({
 module.exports = {
   addProduit,
   getAllProduits,
-
+  getOneProduit,
   updateProduit,
   deleteProduit,
   upload,

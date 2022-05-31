@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     refference: {
       type: DataTypes.STRING(50),
       defaultVAlue: "",
+      unique: true,
       allowNul: false,
     },
     designation: {

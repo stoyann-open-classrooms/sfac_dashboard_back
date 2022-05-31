@@ -9,6 +9,7 @@ router.post("/addDemande", demandeController.addDemande);
 
 router.get("/allDemandes", demandeController.getAllDemandes);
 
+router.get("/:id", demandeController.getOneDemande);
 router.put("/:id", demandeController.updateDemande);
 
 router.delete("/:id", demandeController.deleteDemande);

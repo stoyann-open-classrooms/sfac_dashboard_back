@@ -9,6 +9,7 @@ router.put("/addPays", paysController.addPays);
 
 router.get("/allPays", paysController.getAllPays);
 
+router.get("/:id", paysController.getOnePays);
 router.put("/:id", paysController.updatePays);
 
 router.delete("/:id", paysController.deletePays);

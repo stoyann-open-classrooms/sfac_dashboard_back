@@ -38,6 +38,12 @@ const getAllDemandes = async (req, res) => {
     );
 };
 
+const getOneDemande = async (req, res) => {
+  let id = req.params.id;
+  let demande = await Demande.findOne({ where: { id: id } });
+  res.status(200).send(demande);
+};
+
 // modifier un fournisseur
 const updateDemande = async (req, res) => {
   let id = req.params.id;
@@ -61,5 +67,6 @@ module.exports = {
   addDemande,
   getAllDemandes,
   updateDemande,
+  getOneDemande,
   deleteDemande,
 };
