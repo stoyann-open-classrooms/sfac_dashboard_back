@@ -1,5 +1,4 @@
 const express = require("express");
-
 const cors = require("cors");
 
 const app = express();
@@ -22,8 +21,7 @@ const produitRouter = require("./routes/produitRouter");
 app.use(`${process.env.BASE_URL}/produit`, produitRouter);
 const uniteRouter = require("./routes/uniteRouter");
 app.use(`${process.env.BASE_URL}/unite`, uniteRouter);
-const paysRouter = require("./routes/paysRouter");
-app.use(`${process.env.BASE_URL}/pays`, paysRouter);
+
 const userRouter = require("./routes/userRouter");
 app.use(`${process.env.BASE_URL}/users`, userRouter);
 const authRouter = require("./routes/authRouter.js");

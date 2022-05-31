@@ -2,6 +2,7 @@ const db = require("../models");
 
 // model
 const Fournisseur = db.fournisseurs;
+const Produit = db.produits;
 
 // image Upload
 // image Upload
@@ -28,7 +29,9 @@ const addFournisseur = async (req, res) => {
 // 2. tout les fournisseurs
 
 const getAllFournisseurs = async (req, res) => {
-  let fournisseurs = await Fournisseur.findAll()
+  let fournisseurs = await Fournisseur.findAll({
+    include: { model: Produit, as: "produits" },
+  })
     .then((fournisseur) =>
       res.json({
         message: `✅ ${fournisseur.length} fournisseurs ont étè trouvé`,

@@ -1,12 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Unite = sequelize.define("unite", {
     id: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    nom: {
-      type: DataTypes.STRING(25),
+    unite: {
+      type: DataTypes.STRING,
+      defaultVAlue: "",
+      unique: true,
+      allowNul: false,
+    },
+    abreviation: {
+      type: DataTypes.STRING,
       defaultVAlue: "",
       unique: true,
       allowNul: false,

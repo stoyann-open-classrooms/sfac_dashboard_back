@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Demande = sequelize.define("demande", {
     id: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
@@ -14,12 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNul: true,
     },
+    status: {
+      type: DataTypes.ENUM("A traiter", "En cours", "livrée", "Archivée"),
+      defaultValue: "A traiter",
+    },
     quantite: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       allowNul: true,
     },
     num_commande: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNul: true,
     },
     date_commande: {

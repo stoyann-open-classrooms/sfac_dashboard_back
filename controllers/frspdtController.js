@@ -15,7 +15,7 @@ const addFrspdt = async (req, res) => {
     quantite_min: req.body.quantite_min,
     quantite_unite: req.body.quantite_unite,
   };
-
+  console.log(data.quantite_min);
   const frspdt = await Frspdt.create(data);
   res.status(200).send(frspdt);
 };

@@ -3,6 +3,7 @@ const db = require("../models");
 
 // model
 const Kanban = db.kanbans;
+const Produit = db.produits;
 
 // fonctions
 
@@ -11,28 +12,28 @@ const addKanban = async (req, res) => {
 
   let data = {
     uid_nfc: req.body.uid_nfc,
-    produit_id: req.body.produit_id,
-    frspdt_id: req.body.frspdt_id,
   };
 
   const kanban = await Kanban.create(data);
   res.status(200).send(kanban);
 };
 
-// 2. tout les fournisseurs
-
 const getAllKanbans = async (req, res) => {
-  let kanbans = await Kanban.findAll()
-    .then((kanban) =>
+  let kanbans = await Kanban.findAll({
+    include: { model: Produit, as: "produit" },
+  })
+    .then((kanbans) =>
       res.json({
-        message: `✅ ${kanban.length} Kanban ont étè trouvé`,
-        data: kanban,
+        message: `✅ ${kanbans.length} Kanbans ont étè trouvé`,
+        data: kanbans,
       })
     )
     .catch((err) =>
       res.status(500).json({ message: `⛔️ Database Error`, error: err })
     );
 };
+
+// 2. tout les fournisseurs
 
 const getOneKanban = async (req, res) => {
   let id = req.params.id;

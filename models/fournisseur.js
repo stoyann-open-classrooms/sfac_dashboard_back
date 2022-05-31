@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Fournisseur = sequelize.define("fournisseur", {
     id: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
 
     nom: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       defaultVAlue: "",
       allowNul: false,
       unique: true,
@@ -16,12 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     adresse: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING,
       defaultVAlue: "",
       allowNul: false,
     },
     site: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       defaultVAlue: "",
       allowNul: true,
     },

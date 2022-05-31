@@ -9,7 +9,8 @@ const addUnite = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    nom: req.body.nom,
+    unite: req.body.unite,
+    abreviation: req.body.abreviation,
   };
 
   const unite = await Unite.create(data);

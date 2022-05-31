@@ -37,7 +37,6 @@ db.frspdts = require("./frspdt")(sequelize, DataTypes);
 db.kanbans = require("./kanban")(sequelize, DataTypes);
 db.produits = require("./produit")(sequelize, DataTypes);
 db.unites = require("./unite")(sequelize, DataTypes);
-db.payss = require("./pays")(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
   console.log("base de donnée synchroniser!");
@@ -58,13 +57,6 @@ db.sequelize.sync({ force: false }).then(() => {
 // // // ================ todo = mise en place des relations
 
 // 1 to many relation between fournisseur et pays
-
-db.payss.hasMany(db.fournisseurs, {
-  foreignKey: {
-    type: DataTypes.INTEGER(10),
-  },
-});
-db.fournisseurs.belongsTo(db.payss, {});
 
 // 1 to many relation between fournisseur et produits
 
@@ -88,7 +80,7 @@ db.frspdts.belongsTo(db.unites, {});
 // 1 To 1 between product et frspdt
 db.produits.hasOne(db.frspdts, {
   foreignKey: {
-    type: DataTypes.INTEGER(10),
+    type: DataTypes.INTEGER,
   },
 });
 db.frspdts.belongsTo(db.produits, {});

@@ -1,5 +1,6 @@
 // import controllers
 const fournisseurController = require("../controllers/fournisseurController");
+const produitController = require("../controllers/produitController");
 
 // router
 const router = require("express").Router();
