@@ -19,7 +19,6 @@ const addFournisseur = async (req, res) => {
     image: req.file.path,
     adresse: req.body.adresse,
     site: req.body.site,
-    id_pays: req.body.id_pays,
   };
 
   const fournisseur = await Fournisseur.create(data);
@@ -29,8 +28,16 @@ const addFournisseur = async (req, res) => {
 // 2. tout les fournisseurs
 
 const getAllFournisseurs = async (req, res) => {
-  const fournisseurs = await Fournisseur.findAll({});
-  res.status(200).send(fournisseurs);
+  let fournisseurs = await Fournisseur.findAll()
+    .then((fournisseur) =>
+      res.json({
+        message: `✅ ${fournisseur.length} fournisseurs ont étè trouvé`,
+        data: fournisseur,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 // modifier un fournisseur
@@ -81,7 +88,9 @@ const upload = multer({
 module.exports = {
   addFournisseur,
   getAllFournisseurs,
+
   updateFournisseur,
   deleteFournisseur,
+
   upload,
 };

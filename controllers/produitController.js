@@ -22,9 +22,18 @@ const addProduit = async (req, res) => {
 };
 
 const getAllProduits = async (req, res) => {
-  const produits = await Produit.findAll({ include: Fournisseur });
-  res.status(200).send(produits);
+  let produits = await Produit.findAll()
+    .then((produits) =>
+      res.json({
+        message: `✅ ${produits.length} Produits ont étè trouvé`,
+        data: produits,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
+
 // modifier un fournisseur
 const updateProduit = async (req, res) => {
   let id = req.params.id;

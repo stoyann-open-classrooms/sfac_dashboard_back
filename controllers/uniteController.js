@@ -17,8 +17,16 @@ const addUnite = async (req, res) => {
 };
 
 const getAllUnites = async (req, res) => {
-  const unites = await Unite.findAll({});
-  res.status(200).send(unites);
+  let unites = await Unite.findAll()
+    .then((unites) =>
+      res.json({
+        message: `✅ ${unites.length} unités ont étè trouvé`,
+        data: unites,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 const updateUnite = async (req, res) => {

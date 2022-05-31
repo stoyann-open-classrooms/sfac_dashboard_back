@@ -26,8 +26,16 @@ const addDemande = async (req, res) => {
 // 2. tout les fournisseurs
 
 const getAllDemandes = async (req, res) => {
-  const demandes = await Demande.findAll({});
-  res.status(200).send(demandes);
+  let demandes = await Demande.findAll()
+    .then((demande) =>
+      res.json({
+        message: `✅ ${demande.length} demandes ont étè trouvé`,
+        data: demande,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 // modifier un fournisseur

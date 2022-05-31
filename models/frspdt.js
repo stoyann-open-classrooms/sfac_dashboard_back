@@ -5,14 +5,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    id_fournisseur: {
-      type: DataTypes.INTEGER(10),
-      allowNul: false,
-    },
-    id_produit: {
-      type: DataTypes.INTEGER(10),
-      allowNul: false,
-    },
 
     delai_jour: {
       type: DataTypes.INTEGER(10),
@@ -24,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNul: true,
     },
     quantite_unite: {
-      type: DataTypes.INTEGER(10),
-      allowNul: false,
-    },
-    id_unite: {
       type: DataTypes.INTEGER(10),
       allowNul: false,
     },

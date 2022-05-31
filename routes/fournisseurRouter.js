@@ -9,7 +9,6 @@ router.post(
   fournisseurController.upload,
   fournisseurController.addFournisseur
 );
-
 router.get("/allFournisseurs", fournisseurController.getAllFournisseurs);
 
 router.put("/:id", fournisseurController.updateFournisseur);

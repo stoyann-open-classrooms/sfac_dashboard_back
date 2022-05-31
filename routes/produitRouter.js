@@ -5,7 +5,7 @@ const produitController = require("../controllers/produitController");
 const router = require("express").Router();
 
 // fournisseurs routers
-router.post(
+router.put(
   "/addProduit",
   produitController.upload,
   produitController.addProduit

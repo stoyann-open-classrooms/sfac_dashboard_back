@@ -67,10 +67,30 @@ db.sequelize.sync({ force: false }).then(() => {
 //   as: "appareil",
 // });
 
-// // 1 to 1 relation between fournisseur et pays
+// 1 to many relation between fournisseur et pays
 
-// db.fournisseurs.hasOne(db.payss, {
-//   foreignKey: "pays",
-// });
+db.payss.hasMany(db.fournisseurs, {});
+db.fournisseurs.belongsTo(db.payss, {});
+
+// 1 to many relation between fournisseur et produits
+
+db.fournisseurs.hasMany(db.produits, {});
+db.produits.belongsTo(db.fournisseurs, {});
+
+// 1 to many relation between kanban et produit
+
+db.produits.hasMany(db.kanbans, {});
+db.kanbans.belongsTo(db.produits, {});
+
+// 1 to many relation between demande et kanban
+
+db.kanbans.hasMany(db.demandes, {});
+db.demandes.belongsTo(db.kanbans, {});
+// 1 to many relation between demande et kanban
+
+db.unites.hasMany(db.frspdts, {});
+db.frspdts.belongsTo(db.unites, {});
+db.produits.hasOne(db.frspdts, {});
+db.frspdts.belongsTo(db.produits, {});
 
 module.exports = db;

@@ -5,10 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    kanban_id: {
-      type: DataTypes.INTEGER(10),
-      allowNul: false,
-    },
+
     date_demande: {
       type: DataTypes.DATE,
       allowNul: false,
@@ -31,10 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     date_livraison: {
       type: DataTypes.DATE,
-      allowNul: true,
-    },
-    frspdt_id: {
-      type: DataTypes.INTEGER(10),
       allowNul: true,
     },
   });

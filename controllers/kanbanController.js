@@ -22,8 +22,16 @@ const addKanban = async (req, res) => {
 // 2. tout les fournisseurs
 
 const getAllKanbans = async (req, res) => {
-  const kanbans = await Kanban.findAll({});
-  res.status(200).send(kanbans);
+  let kanbans = await Kanban.findAll()
+    .then((kanban) =>
+      res.json({
+        message: `✅ ${kanban.length} Kanban ont étè trouvé`,
+        data: kanban,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 // modifier un fournisseur

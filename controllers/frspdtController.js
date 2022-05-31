@@ -26,8 +26,16 @@ const addFrspdt = async (req, res) => {
 // 2. tout les fournisseurs
 
 const getAllFrspdts = async (req, res) => {
-  const frspdts = await Frspdt.findAll({});
-  res.status(200).send(frspdts);
+  let frspdts = await Frspdt.findAll()
+    .then((frspdt) =>
+      res.json({
+        message: `✅ ${frspdt.length} FRSPDT ont étè trouvé`,
+        data: frspdt,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 // modifier un fournisseur

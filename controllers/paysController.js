@@ -17,8 +17,16 @@ const addPays = async (req, res) => {
 };
 
 const getAllPays = async (req, res) => {
-  const pays = await Pays.findAll({});
-  res.status(200).send(pays);
+  let pays = await Pays.findAll()
+    .then((pays) =>
+      res.json({
+        message: `✅ ${pays.length} Pays ont étè trouvé`,
+        data: pays,
+      })
+    )
+    .catch((err) =>
+      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+    );
 };
 
 const updatePays = async (req, res) => {
