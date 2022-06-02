@@ -1,29 +1,25 @@
 const db = require("../models");
 
-// model
+// Imports des models
 const Demande = db.demandes;
 const Kanban = db.kanbans;
-const Produit = db.produits;
 
-// fonctions
-
+// =========================== Ajouter une demande ========================================
 const addDemande = async (req, res) => {
   const id = req.params.id;
 
   let data = {
-    date_demande: req.body.date_demande,
     urgent: req.body.urgent,
     quantite: req.body.quantite,
-    num_commande: req.body.num_commande,
-    date_commande: req.body.date_commande,
-    date_livraison: req.body.date_livraison,
+    remarques: req.body.remarques,
+    kanbanId: req.body.kanbanId,
   };
 
   const demande = await Demande.create(data);
   res.status(200).send(demande);
 };
 
-// 2. tout les fournisseurs
+// =========================== Recuperer la liste des demandes ========================================
 
 const getAllDemandes = async (req, res) => {
   let demandes = await Demande.findAll({
@@ -31,7 +27,7 @@ const getAllDemandes = async (req, res) => {
   })
     .then((demande) =>
       res.json({
-        message: `✅ ${demande.length} demandes ont étè trouvé`,
+        message: `✅ ${demande.length} demande(s) ont étè trouvé`,
         data: demande,
       })
     )
@@ -40,19 +36,26 @@ const getAllDemandes = async (req, res) => {
     );
 };
 
+// =========================== Recuperer une demande via son ID========================================
+
 const getOneDemande = async (req, res) => {
   let id = req.params.id;
-  let demande = await Demande.findOne({ where: { id: id } });
+  let demande = await Demande.findOne({
+    where: { id: id },
+    include: { model: Kanban, as: "kanban" },
+  });
   res.status(200).send(demande);
 };
 
+// =========================== Recuperer la liste des demandes urgente========================================
 const getUrgentesDemande = async (req, res) => {
   const urgentDemande = await Demande.findAll({ where: { urgent: true } });
 
   res.status(200).send(urgentDemande);
 };
 
-// modifier un fournisseur
+// =========================== Modifier une demande ========================================
+
 const updateDemande = async (req, res) => {
   let id = req.params.id;
 
@@ -61,7 +64,7 @@ const updateDemande = async (req, res) => {
   res.status(200).send(demande.body);
 };
 
-// 5.Supprimer un fournisseur
+// =========================== Supprimer une demande ========================================
 
 const deleteDemande = async (req, res) => {
   let id = req.params.id;
@@ -71,12 +74,14 @@ const deleteDemande = async (req, res) => {
   res.status(200).send("La demande est suprimée !");
 };
 
+// =========================== Recupere la liste des demandes a traiter ========================================
 const getDemandeAtraiter = async (req, res) => {
   const aTraiter = await Demande.findAll({ where: { status: "A traiter" } });
 
   res.status(200).send(aTraiter);
 };
 
+// =========================== Recupere la liste des demandes en cours ========================================
 const getDemandesEnCours = async (req, res) => {
   let enCours = await Demande.findAll({
     where: { status: "en cours" }, //on veux uniquement ceux qui ont le role "2"
@@ -92,6 +97,8 @@ const getDemandesEnCours = async (req, res) => {
       res.status(500).json({ message: `⛔️ Database Error`, error: err })
     );
 };
+
+// =========================== EXPORTS========================================
 
 module.exports = {
   addDemande,

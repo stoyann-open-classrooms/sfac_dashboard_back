@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
     uid_nfc: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
-      allowNul: false,
+      allowNull: false,
       unique: true,
     },
   });

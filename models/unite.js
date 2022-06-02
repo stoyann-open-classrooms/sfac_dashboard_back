@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     unite: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
+      defaultValue: "",
       unique: true,
-      allowNul: false,
+      allowNull: false,
     },
     abreviation: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
+      defaultValue: "",
       unique: true,
-      allowNul: false,
+      allowNull: false,
     },
   });
 

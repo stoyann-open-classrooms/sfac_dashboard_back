@@ -1,32 +1,31 @@
 const db = require("../models");
 
-// model
+// Imports des models
 const Fournisseur = db.fournisseurs;
 const Produit = db.produits;
 
 // image Upload
-// image Upload
 const multer = require("multer");
 const path = require("path");
-// fonctions
 
-//1. Ajout dun fournisseur
+// =========================== Recuperer la liste de tous les fournisseurs ========================================
 
 const addFournisseur = async (req, res) => {
   const id = req.params.id;
-
   let data = {
     nom: req.body.nom,
     image: req.file.path,
-    adresse: req.body.adresse,
     site: req.body.site,
+    adresse: req.body.adresse,
+    email: req.body.email,
+    phone: req.body.phone,
   };
 
   const fournisseur = await Fournisseur.create(data);
   res.status(200).send(fournisseur);
 };
 
-// 2. tout les fournisseurs
+// =========================== Recuperer la liste de tous les fournisseurs ========================================
 
 const getAllFournisseurs = async (req, res) => {
   let fournisseurs = await Fournisseur.findAll({
@@ -34,7 +33,7 @@ const getAllFournisseurs = async (req, res) => {
   })
     .then((fournisseur) =>
       res.json({
-        message: `✅ ${fournisseur.length} fournisseurs ont étè trouvé`,
+        message: `✅ ${fournisseur.length} Fournisseurs en base de données`,
         data: fournisseur,
       })
     )
@@ -43,13 +42,15 @@ const getAllFournisseurs = async (req, res) => {
     );
 };
 
+// =========================== Recuperer un fournisseur via son ID ========================================
 const getOneFounisseur = async (req, res) => {
   let id = req.params.id;
   let fournisseur = await Fournisseur.findOne({ where: { id: id } });
   res.status(200).send(fournisseur);
 };
 
-// modifier un fournisseur
+// =========================== Modifier  un fournisseur via son ID ========================================
+
 const updateFournisseur = async (req, res) => {
   let id = req.params.id;
 
@@ -58,8 +59,7 @@ const updateFournisseur = async (req, res) => {
   res.status(200).send(fournisseur);
 };
 
-// 5.Supprimer un fournisseur
-
+// =========================== Supprimer un fournisseur via son ID ========================================
 const deleteFournisseur = async (req, res) => {
   let id = req.params.id;
 
@@ -68,7 +68,8 @@ const deleteFournisseur = async (req, res) => {
   res.status(200).send("Le fournisseur est suprimée !");
 };
 
-// 8. Upload Image Controller
+// =========================== UPLOAD IMAGE CONTROLLER's ========================================
+
 const im = "logo_fournisseur_";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -94,12 +95,13 @@ const upload = multer({
   },
 }).single("image");
 
+// =========================== EXPORT ========================================
+
 module.exports = {
   addFournisseur,
   getAllFournisseurs,
   getOneFounisseur,
   updateFournisseur,
   deleteFournisseur,
-
   upload,
 };

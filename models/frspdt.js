@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
 
     delai_jour: {
       type: DataTypes.INTEGER,
-      allowNul: false,
+      allowNull: false,
     },
     quantite_min: {
       type: DataTypes.INTEGER,
-      allowNul: false,
+      allowNull: false,
     },
     quantite_unite: {
       type: DataTypes.INTEGER,
-      allowNul: false,
+      allowNull: false,
     },
   });
 

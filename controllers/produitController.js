@@ -1,13 +1,15 @@
 const db = require("../models");
 
-// model
+// models
 const Produit = db.produits;
-const Fournisseur = db.fournisseur;
-// image Upload
+const Fournisseur = db.fournisseurs;
+const Categorie = db.categories;
+
+// image Upload dependence
 const multer = require("multer");
 const path = require("path");
-// fonctions
 
+// =========================== Ajouter un produit ========================================
 const addProduit = async (req, res) => {
   const id = req.params.id;
 
@@ -15,17 +17,27 @@ const addProduit = async (req, res) => {
     image: req.file.path,
     refference: req.body.refference,
     designation: req.body.designation,
+    description: req.body.description,
+    fournisseurId: req.body.fournisseurId,
+    categorieId: req.body.categorieId,
   };
 
   const produit = await Produit.create(data);
   res.status(200).send(produit);
 };
 
+// =========================== Recuperer La liste de tous les produits ========================================
+
 const getAllProduits = async (req, res) => {
-  let produits = await Produit.findAll()
+  let produits = await Produit.findAll({
+    include: {
+      model: Categorie,
+      as: "categorie",
+    },
+  })
     .then((produits) =>
       res.json({
-        message: `✅ ${produits.length} Produits ont étè trouvé`,
+        message: `✅ ${produits.length} Produit(s) trouvé`,
         data: produits,
       })
     )
@@ -34,13 +46,16 @@ const getAllProduits = async (req, res) => {
     );
 };
 
+// =========================== Recuperer un produit via son ID ========================================
+
 const getOneProduit = async (req, res) => {
   let id = req.params.id;
   let produit = await Produit.findOne({ where: { id: id } });
   res.status(200).send(produit);
 };
 
-// modifier un fournisseur
+// =========================== Modifier un produit via son ID ========================================
+
 const updateProduit = async (req, res) => {
   let id = req.params.id;
 
@@ -49,7 +64,7 @@ const updateProduit = async (req, res) => {
   res.status(200).send(produit);
 };
 
-// 5.Supprimer un fournisseur
+// =========================== Supprimer un produit via son ID ========================================
 
 const deleteProduit = async (req, res) => {
   let id = req.params.id;
@@ -59,7 +74,8 @@ const deleteProduit = async (req, res) => {
   res.status(200).send("Le produit est suprimée !");
 };
 
-// 8. Upload Image Controller
+// =========================== UPLOAD IMAGE CONTROLLER ========================================
+
 const im = "photo_produit_";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -84,6 +100,8 @@ const upload = multer({
     cb("Give proper files formate to upload");
   },
 }).single("image");
+
+// =========================== EXPORTS ========================================
 
 module.exports = {
   addProduit,

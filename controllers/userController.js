@@ -4,73 +4,77 @@ const bcrypt = require("bcrypt");
 // create main Model
 const User = db.users;
 
-// main work
-
-// 1. create product
+// =========================== Ajouter un utilisateur & (hachage du mot de passe en base de données) ========================================
 
 const addUser = async (req, res) => {
   let info = {
     email: req.body.email,
     password: req.body.password,
+    nom: req.body.nom,
+    prenom: req.body.prenom,
+    isAdmin: req.body.isAdmin,
   };
 
   let user = await User.findOne({
     where: { email: info.email },
     raw: true,
   }).then((user) => {
-    //Vérification si l'uttisateur existe déjà
+    // ============>   Vérification si l'utilisateur existe déjà
     if (user !== null) {
       return res.status(409).json({
-        message: `⛔️ Un uttilisateur est déja inscrit avec cette email ! ⛔️`,
+        message: `⛔️Un utilisateur est déjà inscrit avec cet e-mail !⛔️`,
       });
     }
 
-    // hachage du mot de passe de l'uttilisateur
+    // ============>  hachage du mot de passe de l'utilisateur
 
     bcrypt
       .hash(info.password, 10)
       .then((hash) => {
         info.password = hash;
 
-        // Création  de l'uttilisateur
+        // ============>  Création  de l'utilisateur
 
         User.create(info)
           .then((user) =>
-            res.json({ message: " ✅ New user created", data: user })
+            res.json({ message: " ✅ Nouvel utilisateur créé ✅ ", data: user })
           )
           .catch((err) =>
-            res.status(500).json({ message: "⛔️ Database error", error: err })
+            res.status(500).json({
+              message: `⛔️ Une erreur est survenue, veuillez réessayer ⛔️`,
+            })
           );
       })
 
       .catch((err) =>
-        res
-          .status(500)
-          .json({ message: "⛔️ Database error ⛔️⛔️⛔️⛔️", error: err })
+        res.status(500).json({
+          message: `⛔️ Une erreur est survenue, veuillez réessayer ⛔️`,
+        })
       );
   });
 };
 
-// 2. get all trocs
-
+// =========================== Recuperer la liste de tous les uttilisateur(s) ========================================
 const getAllUsers = async (req, res) => {
   let users = await User.findAll()
     .then((users) =>
       res.json({
-        message: " ✅Tous les uttilisateur ont étè trouvé",
+        message: ` ✅${users.length} uttilisateur(s) en base de données`,
         data: users,
       })
     )
     .catch((err) =>
-      res.status(500).json({ message: `⛔️ Database Error`, error: err })
+      res.status(500).json({
+        message: `⛔️ Une erreur est survenue, veuillez réessayer ⛔️`,
+      })
     );
 };
 
-// 3. get one user
+// =========================== Recuperer un utilisateur via son ID ========================================
 
 const getOneUser = async (req, res) => {
   let userId = parseInt(req.params.id);
-  //Vérification si le champs id est présent et cohérent
+
   if (!userId) {
     return res.json(400).json({ message: " ⛔️ Missing parameter" });
   }
@@ -80,18 +84,19 @@ const getOneUser = async (req, res) => {
       if (user === null) {
         return res
           .status(404)
-          .json({ message: " ⛔️ This user does not exist !" });
+          .json({ message: " ⛔️ Cet utilisateur n'existe pas !" });
       }
       // Uttilisateur trouvée
       return res.json({ data: user });
     })
     .catch((err) =>
-      res.status(500).json({ message: " ⛔️ Database error", error: err })
+      res.status(500).json({
+        message: `⛔️ Une erreur est survenue, veuillez réessayer ⛔️`,
+      })
     );
 };
 
-// 4. update Product
-
+// =========================== Modifier un uttilisateur via son ID  ========================================
 const updateUser = async (req, res) => {
   let id = req.params.id;
 
@@ -100,7 +105,7 @@ const updateUser = async (req, res) => {
   res.status(200).send(user);
 };
 
-// 5. delete product by id
+// =========================== Supprimer un uttilisateur via son ID  ========================================
 
 const deleteUser = async (req, res) => {
   let id = req.params.id;
@@ -110,11 +115,12 @@ const deleteUser = async (req, res) => {
   res.status(200).send("user is deleted !");
 };
 
+// =========================== EXPORTS ========================================
+
 module.exports = {
   addUser,
   getAllUsers,
   getOneUser,
-
   updateUser,
   deleteUser,
 };

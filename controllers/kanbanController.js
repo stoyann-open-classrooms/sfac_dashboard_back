@@ -1,22 +1,23 @@
 const db = require("../models");
-// image Upload
 
-// model
+// models
 const Kanban = db.kanbans;
 const Produit = db.produits;
 
-// fonctions
+// =========================== Ajouter un kanban ========================================
 
 const addKanban = async (req, res) => {
   const id = req.params.id;
 
   let data = {
     uid_nfc: req.body.uid_nfc,
+    produitId: req.body.produitId,
   };
 
   const kanban = await Kanban.create(data);
   res.status(200).send(kanban);
 };
+// =========================== Recuperer la  liste de tous les kanbans via son ID ========================================
 
 const getAllKanbans = async (req, res) => {
   let kanbans = await Kanban.findAll({
@@ -24,7 +25,7 @@ const getAllKanbans = async (req, res) => {
   })
     .then((kanbans) =>
       res.json({
-        message: `✅ ${kanbans.length} Kanbans ont étè trouvé`,
+        message: `✅ ${kanbans.length} Kanban(s) trouvé`,
         data: kanbans,
       })
     )
@@ -33,7 +34,7 @@ const getAllKanbans = async (req, res) => {
     );
 };
 
-// 2. tout les fournisseurs
+// =========================== Recuperer un kanban via son ID ========================================
 
 const getOneKanban = async (req, res) => {
   let id = req.params.id;
@@ -41,7 +42,8 @@ const getOneKanban = async (req, res) => {
   res.status(200).send(kanban);
 };
 
-// modifier un fournisseur
+// ===========================Modifier un kanban via son ID ========================================
+
 const updateKanban = async (req, res) => {
   let id = req.params.id;
 
@@ -50,7 +52,7 @@ const updateKanban = async (req, res) => {
   res.status(200).send(kanban);
 };
 
-// 5.Supprimer un fournisseur
+// =========================== Supprimer un kanban via son ID ========================================
 
 const deleteKanban = async (req, res) => {
   let id = req.params.id;
@@ -59,6 +61,8 @@ const deleteKanban = async (req, res) => {
 
   res.status(200).send("La kanban est suprimée !");
 };
+
+// =========================== EXPORTS ========================================
 
 module.exports = {
   addKanban,

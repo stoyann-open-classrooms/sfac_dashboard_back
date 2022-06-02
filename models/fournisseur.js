@@ -5,11 +5,19 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      defaultValue: null, // allowNull: true,
+      // validate: {
+      //   isEmail: true,
+      // },
+    },
 
     nom: {
       type: DataTypes.STRING,
       defaultVAlue: "",
-      allowNul: false,
+      allowNull: false,
       unique: true,
     },
     image: {
@@ -17,13 +25,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     adresse: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
-      allowNul: false,
+      defaultValue: "",
+      allowNull: false,
     },
     site: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
-      allowNul: true,
+      defaultValue: "",
+      allowNull: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+      allowNull: true,
     },
   });
 

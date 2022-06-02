@@ -11,14 +11,17 @@ module.exports = (sequelize, DataTypes) => {
 
     refference: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
       unique: true,
-      allowNul: false,
+      allowNull: false,
     },
     designation: {
       type: DataTypes.STRING,
-      defaultVAlue: "",
-      allowNul: false,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      defaultValue: "Ce produit ne possède aucune description",
+      allowNull: true,
     },
   });
 

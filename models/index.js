@@ -36,6 +36,7 @@ db.fournisseurs = require("./fournisseur")(sequelize, DataTypes);
 db.frspdts = require("./frspdt")(sequelize, DataTypes);
 db.kanbans = require("./kanban")(sequelize, DataTypes);
 db.produits = require("./produit")(sequelize, DataTypes);
+db.categories = require("./produitCategorie")(sequelize, DataTypes);
 db.unites = require("./unite")(sequelize, DataTypes);
 
 db.sequelize.sync({ force: false }).then(() => {
@@ -43,41 +44,31 @@ db.sequelize.sync({ force: false }).then(() => {
 });
 
 // ================= RELATIONS OK =============
-// 1 to many relation kanban et demandes
 
-// db.kanbans.hasMany(db.demandes, {
-//   foreignKey: "kanban_id",
-//   as: "kanban",
-// });
-// db.demandes.belongsTo(db.kanbans, {
-//   foreignKey: "kanban_id",
-//   as: "kanban",
-// });
-
-// // // ================ todo = mise en place des relations
-
-// 1 to many relation between fournisseur et pays
-
-// 1 to many relation between fournisseur et produits
-
+// 1 to many relation  between fournisseurs et produits
 db.fournisseurs.hasMany(db.produits, {});
 db.produits.belongsTo(db.fournisseurs, {});
 
-// 1 to many relation between kanban et produit
+// 1 to many relation between produits et kanbans
 
 db.produits.hasMany(db.kanbans, {});
 db.kanbans.belongsTo(db.produits, {});
 
-// 1 to many relation between demande et kanban
+// 1 to many relation between kanbans et demandes
 
 db.kanbans.hasMany(db.demandes, {});
 db.demandes.belongsTo(db.kanbans, {});
-// 1 to many relation between demande et kanban
+
+// 1 to many relation between unites et FRSPDT
 
 db.unites.hasMany(db.frspdts, {});
 db.frspdts.belongsTo(db.unites, {});
+// 1 to many relation between categories et produit
 
-// 1 To 1 between product et frspdt
+db.categories.hasMany(db.produits, {});
+db.produits.belongsTo(db.categories, {});
+
+// 1 To 1 between produits et FRSPDT
 db.produits.hasOne(db.frspdts, {
   foreignKey: {
     type: DataTypes.INTEGER,

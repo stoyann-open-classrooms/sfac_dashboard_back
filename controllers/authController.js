@@ -3,8 +3,10 @@ const db = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// create main Model
+//  =========== Imports des models
 const User = db.users;
+
+// =========================== Login User ========================================
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -19,13 +21,15 @@ const login = async (req, res) => {
     .then((user) => {
       if (user === null) {
       }
-      //verrification du mot de passe
+      //verification password
 
       bcrypt
         .compare(password, user.password)
         .then((test) => {
           if (!test) {
-            return res.status(401).send(" ⛔️ ⛔️ ⛔️ wrong password");
+            return res
+              .status(401)
+              .send("  ⛔️⛔️ Mot de passe incorrecte ⛔️⛔️");
           }
 
           // generation du web token
@@ -43,11 +47,17 @@ const login = async (req, res) => {
           });
         })
         .catch((err) =>
-          res.status(500).send(" ⛔️ ⛔️ logging process failed")
+          res
+            .status(500)
+            .send(
+              " ⛔️⛔️ Une erreur, c'est produit veuillez réessayer ⛔️⛔️ "
+            )
         );
     })
-    .catch((err) => res.status(500).send(" ⛔️ database error  ⛔️"));
+    .catch((err) => res.status(500).send("⛔️⛔️ Erreur Database  ⛔️⛔️"));
 };
+
+// =========================== EXPORT ========================================
 
 module.exports = {
   login,

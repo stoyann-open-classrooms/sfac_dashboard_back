@@ -6,6 +6,23 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
 
+    nom: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+    },
+
+    prenom: {
+      type: DataTypes.STRING,
+      allowNul: false,
+      unique: false,
+    },
+
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+
     email: {
       type: DataTypes.STRING,
       unique: true,

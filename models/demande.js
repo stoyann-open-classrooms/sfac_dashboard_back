@@ -6,33 +6,34 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
 
-    date_demande: {
-      type: DataTypes.DATE,
-      allowNul: false,
-    },
     urgent: {
       type: DataTypes.BOOLEAN,
-      allowNul: true,
+      defaultValue: false,
     },
     status: {
-      type: DataTypes.ENUM("A traiter", "En cours", "livrée", "Archivée"),
+      type: DataTypes.ENUM("A traiter", "En cours", "Livrée", "Archivée"),
       defaultValue: "A traiter",
     },
     quantite: {
       type: DataTypes.INTEGER,
-      allowNul: true,
+      allowNull: true,
     },
     num_commande: {
       type: DataTypes.STRING,
-      allowNul: true,
+      allowNull: true,
     },
     date_commande: {
       type: DataTypes.DATE,
-      allowNul: true,
+      allowNull: true,
     },
     date_livraison: {
       type: DataTypes.DATE,
-      allowNul: true,
+      allowNull: true,
+    },
+    remarques: {
+      type: DataTypes.TEXT,
+      defaultValue: "Aucune remarque pour cette demande",
+      allowNull: true,
     },
   });
 
