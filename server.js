@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const checkTokenMiddleware = require("./jsonWebToken.js/check");
 
 // ==========================   middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const checkTokenMiddleware = require("./jsonWebToken.js/check");
 
 // ===============================================static Images Folder
 app.use("/Images", express.static("./Images"));

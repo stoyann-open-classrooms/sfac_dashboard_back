@@ -1,6 +1,6 @@
 // import controllers
 const kanbanController = require("../controllers/kanbanController");
-
+const checkTokenMiddleware = require("../jsonWebToken.js/check");
 // router
 const router = require("express").Router();
 
