@@ -39,12 +39,27 @@ const getAllDemandes = async (req, res) => {
 // =========================== Recuperer une demande via son ID========================================
 
 const getOneDemande = async (req, res) => {
-  let id = req.params.id;
-  let demande = await Demande.findOne({
-    where: { id: id },
-    include: { model: Kanban, as: "kanban" },
-  });
-  res.status(200).send(demande);
+  let demandeId = parseInt(req.params.id);
+
+  if (!demandeId) {
+    return res.json(400).json({ message: " ⛔️ Missing parameter" });
+  }
+  //Récuperation de l'uttilisateur
+  Demande.findOne({ where: { id: demandeId }, raw: true })
+    .then((demande) => {
+      if (demande === null) {
+        return res
+          .status(404)
+          .json({ message: " ⛔️ Cette demande n'existe pas !" });
+      }
+      // Uttilisateur trouvée
+      return res.json({ data: demande });
+    })
+    .catch((err) =>
+      res.status(500).json({
+        message: `⛔️ Une erreur est survenue, veuillez réessayer ⛔️`,
+      })
+    );
 };
 
 // =========================== Recuperer la liste des demandes urgente========================================
@@ -71,10 +86,10 @@ const deleteDemande = async (req, res) => {
 
   await Demande.destroy({ where: { id: id } });
 
-  res.status(200).send("La demande est suprimée !");
+  res.status(200).send(" ✅✅ La demande est suprimée ! ✅✅");
 };
 
-// =========================== Recupere la liste des demandes a traiter ========================================
+// =================== Recupere la liste des demandes a traiter ========================================
 const getDemandeAtraiter = async (req, res) => {
   const aTraiter = await Demande.findAll({ where: { status: "A traiter" } });
 

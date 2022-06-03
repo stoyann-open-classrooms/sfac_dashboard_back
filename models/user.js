@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     prenom: {
       type: DataTypes.STRING,
-      allowNul: false,
+      allowNull: false,
       unique: false,
     },
 
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      is: /^[0-9a-f]{64}$/i, // contrainte
+      is: /^[0-9a-f]{64}$/i, // contrainte REGEX
     },
   });
   return User;

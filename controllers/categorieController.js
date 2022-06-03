@@ -20,7 +20,7 @@ const getAllCategories = async (req, res) => {
   let categories = await Categorie.findAll()
     .then((categories) =>
       res.json({
-        message: `✅ ${categories.length} categorie(s) ont étè trouvé`,
+        message: `✅ ${categories.length} categorie(s) ont étè trouvé ✅`,
         data: categories,
       })
     )
@@ -31,7 +31,7 @@ const getAllCategories = async (req, res) => {
     );
 };
 
-// =========================== Recuperer une unite via son ID ========================================
+// =========================== Recuperer une unite via son nom et les produits associé ========================================
 const getOneCategorie = async (req, res) => {
   let id = req.params.id;
   let categorie = await Categorie.findOne({ where: { id: id } });
@@ -54,7 +54,7 @@ const deleteCategorie = async (req, res) => {
 
   await Categorie.destroy({ where: { id: id } });
 
-  res.status(200).send("La categorie est suprimée !");
+  res.status(200).send("✅✅ La categorie est suprimée ! ✅✅");
 };
 
 // =========================== EXPORTS ========================================

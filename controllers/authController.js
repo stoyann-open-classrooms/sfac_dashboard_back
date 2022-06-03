@@ -12,7 +12,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).send("  ⛔️ ⛔️ ⛔️ Bad email or password");
+    return res.status(400).send("  ⛔️ ⛔️  Bad email or password ⛔️⛔️ ");
   }
   await User.findOne({
     where: { email: email },
@@ -38,8 +38,8 @@ const login = async (req, res) => {
               id: user.id,
               email: user.email,
             },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_DURING }
+            process.env.JWT_SECRET
+            // { expiresIn: process.env.JWT_DURING }
           );
           return res.json({
             message: " ✅✅ l'uttilisateur est authentifié ✅✅ ",
